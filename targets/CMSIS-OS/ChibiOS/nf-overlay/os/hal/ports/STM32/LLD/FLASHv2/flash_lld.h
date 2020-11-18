@@ -122,6 +122,27 @@ typedef struct SMT32FlashDriver
     (FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_ERSERR)
 #endif /* FLASH_OPTCR2_PCROP */
 
+//---------------------------------- STM32H7xx ------------------------------//
+#elif defined(STM32H742xx) || defined(STM32H743xx) || defined(STM32H753xx) 
+
+#define FLASH_FLAG_EOP    FLASH_SR_EOP    /*!< FLASH End of Operation flag               */
+#define FLASH_FLAG_OPERR  FLASH_SR_OPERR  /*!< FLASH operation Error flag                */
+#define FLASH_FLAG_WRPERR FLASH_SR_WRPERR /*!< FLASH Write protected error flag          */
+#define FLASH_FLAG_PGAERR FLASH_SR_PGAERR /*!< FLASH Programming Alignment error flag    */
+#define FLASH_FLAG_PGPERR FLASH_SR_PGPERR /*!< FLASH Programming Parallelism error flag  */
+#define FLASH_FLAG_ERSERR FLASH_SR_ERSERR /*!< FLASH Erasing Sequence error flag         */
+#define FLASH_FLAG_BSY    FLASH_SR_BSY    /*!< FLASH Busy flag                           */
+
+#if defined(FLASH_OPTCR2_PCROP)
+#define FLASH_FLAG_RDERR FLASH_SR_RDERR /*!< FLASH Read protection error flag          */
+#define FLASH_FLAG_ALL_ERRORS                                                                                          \
+    (FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_ERSERR |                \
+     FLASH_FLAG_RDERR)
+#else
+#define FLASH_FLAG_ALL_ERRORS                                                                                          \
+    (FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | FLASH_FLAG_ERSERR)
+#endif /* FLASH_OPTCR2_PCROP */
+
 #endif
 
 #define __HAL_FLASH_GET_FLAG(__FLAG__)   ((FLASH->SR & (__FLAG__)))
@@ -398,6 +419,63 @@ typedef struct SMT32FlashDriver
 #define ADDR_FLASH_SECTOR_7 ((uint32_t)0x08060000) /* Base @ of Sector 7, 128 Kbytes */
 
 #endif
+/*-----------------------------------------------------------------------------------------------------*/
+
+/*-------------------------------------- STM32H7xx ----------------------------------------------------*/
+#if defined(STM32H742xI) || defined(STM32H743xI) || defined(STM32H753xI)
+
+// this is assuming that we DO NOT work with dual bank
+#define FLASH_SECTOR_0  ((uint32_t)0U)  /*!< Sector Number 0   */
+#define FLASH_SECTOR_1  ((uint32_t)1U)  /*!< Sector Number 1   */
+#define FLASH_SECTOR_2  ((uint32_t)2U)  /*!< Sector Number 2   */
+#define FLASH_SECTOR_3  ((uint32_t)3U)  /*!< Sector Number 3   */
+#define FLASH_SECTOR_4  ((uint32_t)4U)  /*!< Sector Number 4   */
+#define FLASH_SECTOR_5  ((uint32_t)5U)  /*!< Sector Number 5   */
+#define FLASH_SECTOR_6  ((uint32_t)6U)  /*!< Sector Number 6   */
+#define FLASH_SECTOR_7  ((uint32_t)7U)  /*!< Sector Number 7   */
+#define FLASH_SECTOR_8  ((uint32_t)8U)  /*!< Sector Number 8   */
+#define FLASH_SECTOR_9  ((uint32_t)9U)  /*!< Sector Number 9   */
+#define FLASH_SECTOR_10 ((uint32_t)10U) /*!< Sector Number 10  */
+#define FLASH_SECTOR_11 ((uint32_t)11U) /*!< Sector Number 11  */
+#define FLASH_SECTOR_12 ((uint32_t)12U) /*!< Sector Number 12  */
+#define FLASH_SECTOR_13 ((uint32_t)13U) /*!< Sector Number 13  */
+#define FLASH_SECTOR_14 ((uint32_t)14U) /*!< Sector Number 14  */
+#define FLASH_SECTOR_15 ((uint32_t)15U) /*!< Sector Number 15  */
+
+// this is assuming that we DO NOT work with dual bank
+#define ADDR_FLASH_SECTOR_0  ((uint32_t)0x08000000) /* Base @ of Sector 0, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_1  ((uint32_t)0x08020000) /* Base @ of Sector 1, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_2  ((uint32_t)0x08040000) /* Base @ of Sector 2, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_3  ((uint32_t)0x08060000) /* Base @ of Sector 3, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_4  ((uint32_t)0x08080000) /* Base @ of Sector 4, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_5  ((uint32_t)0x080A0000) /* Base @ of Sector 5, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_6  ((uint32_t)0x080C0000) /* Base @ of Sector 6, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_7  ((uint32_t)0x080E0000) /* Base @ of Sector 7, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_8  ((uint32_t)0x08100000) /* Base @ of Sector 8, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_9  ((uint32_t)0x08120000) /* Base @ of Sector 9, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_10 ((uint32_t)0x08140000) /* Base @ of Sector 10, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_11 ((uint32_t)0x08160000) /* Base @ of Sector 11, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_12 ((uint32_t)0x08180000) /* Base @ of Sector 12, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_13 ((uint32_t)0x081A0000) /* Base @ of Sector 13, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_14 ((uint32_t)0x081C0000) /* Base @ of Sector 14, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_15 ((uint32_t)0x081E0000) /* Base @ of Sector 15, 128 Kbyte */
+
+#elif defined(STM32H742xG) || defined(STM32H743xG)
+
+// this is assuming that we DO NOT work with dual bank
+#define FLASH_SECTOR_0  ((uint32_t)0U)  /*!< Sector Number 0   */
+#define FLASH_SECTOR_1  ((uint32_t)1U)  /*!< Sector Number 1   */
+#define FLASH_SECTOR_2  ((uint32_t)2U)  /*!< Sector Number 2   */
+#define FLASH_SECTOR_3  ((uint32_t)3U)  /*!< Sector Number 3   */
+
+// this is assuming that we DO NOT work with dual bank
+#define ADDR_FLASH_SECTOR_0  ((uint32_t)0x08000000) /* Base @ of Sector 0, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_1  ((uint32_t)0x08020000) /* Base @ of Sector 1, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_2  ((uint32_t)0x08040000) /* Base @ of Sector 2, 128 Kbyte */
+#define ADDR_FLASH_SECTOR_3  ((uint32_t)0x08060000) /* Base @ of Sector 3, 128 Kbyte */
+
+#endif /* STM32H742xI || STM32H743xI || STM32H753xI */
+/*-----------------------------------------------------------------------------------------------------*/
 
 // sanity check for definition of flash sector, sector0 exists on any target, so we are good checking for its definition
 #ifndef ADDR_FLASH_SECTOR_0
